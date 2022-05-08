@@ -1,0 +1,29 @@
+.logo {
+    cursor: pointer;
+
+}
+
+.links {
+    cursor: default !important;
+    border: none !important;
+}
+
+.links:hover {
+    background-color: transparent !important;
+}
+
+.link {
+    text-decoration: none !important;
+    font-size: 1.3em;
+    cursor: pointer;
+}
+
+.link:hover {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.295) !important;
+}
+
+@include media-breakpoint-down(md) {
+    .link {
+        font-size: 1em !important;
+    }
+}

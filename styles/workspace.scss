@@ -1,0 +1,72 @@
+//main
+
+.hidex {
+    overflow-x: hidden !important;
+}
+
+.nav-link.active {
+    color: rgb(0, 0, 0) !important;
+    background-color: rgb(209, 206, 218) !important;
+}
+
+.nav-link {
+    color: rgb(59, 59, 59) !important;
+    border-bottom: rgba(209, 209, 209, 0.336) solid 1px !important;
+    cursor: pointer;
+}
+
+.nav-link:hover {
+    background-color: rgba(0, 0, 0, 0.171);
+}
+
+.white {
+    color: rgb(194, 194, 194) !important;
+}
+
+.white.active {
+    background-color: #f8f9fa !important;
+
+}
+
+//custormers
+.tools {
+    background: rgb(77, 77, 77);
+    background: linear-gradient(90deg, rgb(38, 42, 58) 0%, rgb(42, 91, 122) 100%);
+}
+
+
+//Budged
+.form-range::-moz-range-track {
+    background-color: #4c6680 !important;
+}
+
+//function point
+
+.select {
+    background-color: white !important;
+    color: #4c6680;
+}
+
+.toshow {
+    transform: translateX(100%);
+    filter: opacity(0);
+    transition: transform 1s, filter 1s;
+}
+
+.showing {
+    transform: translateX(0%);
+    filter: opacity(1);
+}
+
+.endQuiz {
+    display: none;
+}
+
+.generate {
+    display: block !important;
+}
+
+.tabs{
+    text-decoration: none !important;
+    color: white !important;
+}

@@ -1,0 +1,35 @@
+.image-enter {
+    max-width: 150px !important;
+    transform: scale(1);
+    transition-property: transform;
+    transition-timing-function: ease-out;
+    transition-duration: 1s;
+}
+
+.image-enter:hover {
+    transform: scale(1.05);
+}
+
+h1 {
+    font-size: 1.5em !important;
+}
+
+
+.btn-custom {
+    background-color: transparent;
+    border: none;
+}
+
+.linkinfo {
+
+    font-size: .7em !important;
+    cursor: pointer !important;
+    text-decoration: underline !important;
+    color: black !important;
+    margin-left: 1.5em;
+}
+
+h2 {
+    font-size: 1.3em !important;
+    margin-bottom: 1em;
+}
