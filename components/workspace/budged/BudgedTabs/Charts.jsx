@@ -4,9 +4,12 @@ import 'chart.js/auto'
 import { Line, Bar } from 'react-chartjs-2';
 
 
-export const LineChart = () => {
+export const LineChart = ({ data = [320, 128, 105, 105, 90, 70, 20, 15, 12, 6]
+    , labels = ['Ensamblador', 'C', 'Cobol', 'Fortran', 'Pascal', 'Ada', '4ta Generación', 'Generadores', 'SQL', 'Hojas de cálculo'],
+    text = 'LDC/PF de los lenguajes de programación', label = 'Lenguajes de programación',
+    id }) => {
     return (
-        <Line
+        <Line id={id}
             options={{
                 responsive: true,
                 plugins: {
@@ -17,7 +20,7 @@ export const LineChart = () => {
                     },
                     title: {
                         display: true,
-                        text: 'LDC/PF de los lenguajes de programación',
+                        text,
                         color: "#111"
                     },
                     tooltip: {
@@ -58,12 +61,11 @@ export const LineChart = () => {
                 },
             }}
             data={{
-                labels: ['Ensamblador', 'C', 'Cobol', 'Fortran', 'Pascal', 'Ada', '4ta Generación', 'Generadores', 'SQL', 'Hojas de cálculo'],
-
+                labels,
                 datasets: [
                     {
-                        label: 'Lenguajes de programación',
-                        data: [320, 128, 105, 105, 90, 70, 20, 15, 12, 6],
+                        label,
+                        data,
                         borderColor: '#555',
                         backgroundColor: 'rgba(0,0,0,.4)',
                         fill: true,
@@ -74,21 +76,28 @@ export const LineChart = () => {
     )
 }
 
-export const BarChart = () => {
+export const BarChart = ({
+    text = 'Salario mínimo latinoamérica',
+    labels = ['Argentina', 'Bolivia', 'Brasil', 'Chile', 'Colombia', 'Ecuador', 'Paraguay', 'Perú', 'Uruguay', 'Venezuela'],
+    data = [335, 327, 241, 430, 244, 425, 335, 272, 470, 29],
+    label = 'Pais / Dolar',
+    id
+}) => {
 
     return (
         <Bar
+            id={id}
             options={{
-                indexAxis: 'y',
+                indexAxis: 'x',
                 responsive: true,
                 plugins: {
                     legend: {
-                        position: 'right',
+                        position: 'top',
                         labels: { color: '#222' },
                     },
                     title: {
                         display: true,
-                        text: 'Salario mínimo latinoamérica',
+                        text,
                         color: "#222"
                     },
                     tooltip: {
@@ -130,12 +139,11 @@ export const BarChart = () => {
                 },
             }}
             data={{
-                labels: ['Argentina', 'Bolivia', 'Brasil', 'Chile', 'Colombia', 'Ecuador', 'Paraguay', 'Perú', 'Uruguay', 'Venezuela'],
-
+                labels,
                 datasets: [
                     {
-                        label: 'Pais / Dolar',
-                        data: [335, 327, 241, 430, 244, 425, 335, 272, 470, 29],
+                        label,
+                        data,
                         backgroundColor: 'rgba(0,0,0,.4)',
                     },
                 ],

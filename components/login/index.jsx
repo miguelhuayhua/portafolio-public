@@ -48,7 +48,9 @@ class Login extends Component {
                         Router.push("/workspace/home");
                     }
                 }
-            )
+            ).catch(err => {
+                alert(err)
+            })
     }
     render() {
         return (

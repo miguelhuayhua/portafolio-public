@@ -9,8 +9,9 @@ const nextConfig = {
   images: {
     domains: ['cdn.pixabay.com', 'scontent.flpb2-2.fna.fbcdn.net', 'localhost'],
     formats: ['image/avif', 'image/webp'],
+    loader: 'akamai',
+    path: '',
   },
-  distDir: 'build',
 }
 
 module.exports = nextConfig

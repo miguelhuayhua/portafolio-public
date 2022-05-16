@@ -23,12 +23,12 @@ export default class BudgedMain extends Component {
     render() {
 
         return (<>
-            <Row className="">
+            <Row style={{ overflowX: 'hidden' }}>
                 <Col xs={12} md={3} lg={2} >
                     <LeftPanel />
                 </Col>
                 <Col className="bg-light" xs={12} md={9} lg={10}>
-                    <Budged/>
+                    <Budged />
                 </Col>
             </Row>
         </>)

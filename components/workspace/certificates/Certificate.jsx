@@ -3,7 +3,7 @@
 import { Component, createRef, useRef, useMemo } from "react";
 //react next
 //React Bootstrap
-import { Row, Col, Card, Form, Button, Toast, Tab, Nav, Table, ButtonGroup, DropdownButton, Dropdown, Navbar, Modal } from "react-bootstrap";
+import { Row, Col, Card, Form, Button, Toast, Tab, Nav, Table, ButtonGroup, DropdownButton, Dropdown, Navbar, Modal, Image } from "react-bootstrap";
 //redux
 import { connect } from "react-redux";
 //actions
@@ -24,6 +24,7 @@ export default class Certificate extends Component {
             files: null
         }
         this.form = createRef();
+        this.img = createRef();
     }
     componentDidMount() {
         this.loadData();
@@ -276,42 +277,83 @@ export default class Certificate extends Component {
                     </Card>
                 </Col>
             </Row>
-            <Modal show={this.state.showModal} fullscreen={true} onHide={this.openCloseModal.bind(this)}>
+            <Modal show={true} fullscreen={true} onHide={this.openCloseModal.bind(this)} >
                 <Modal.Header closeButton>
-                    <Modal.Title>Modal</Modal.Title>
+                    <Modal.Title>Nuevo certificado:</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form ref={this.form} method="post" encType="multipart/form-data" id="form" onSubmit={(e) => {
-                        e.preventDefault();
-                        let formData = new FormData(this.form.current);
-                        axios({
-                            method: "post",
-                            url: "http://localhost:3100/certificate/add",
-                            data: formData,
-                            headers: { "Content-Type": "multipart/form-data" }
-                        }).then(() => {
-                        })
-                    }}>
-                        <Form.Group className="mb-3" controlId="formBasicPassword">
-                            <Form.Label>Título</Form.Label>
-                            <Form.Control name="title" type="text" placeholder="Introduzca el título del certificado" />
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="formBasicPassword">
-                            <Form.Label>Empresa</Form.Label>
-                            <Form.Control name="business" type="text" placeholder="Introduzca la empresa" />
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="formBasicPassword">
-                            <Form.Label>Fecha de emisión</Form.Label>
-                            <Form.Control name="business" type="month" min="2020-08" value="2020-10" placeholder="Introduzca la empresa" />
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="formBasicEmail" >
-                            <Form.Label>Choose File</Form.Label>
-                            <Form.Control id="inputfile" type="file" accept="image/*" name="files" />
-                        </Form.Group>
-                        <Button variant="primary" type="submit">
-                            Submit
-                        </Button>
-                    </Form>
+                    <Row>
+                        <Col xs="12" md={{ span: 6, offset: 3 }} className="shadow rounded p-3">
+                            <Form ref={this.form} method="post" encType="multipart/form-data" id="form" onSubmit={(e) => {
+                                e.preventDefault();
+                                let formData = new FormData(this.form.current);
+                                axios({
+                                    method: "post",
+                                    url: "http://localhost:3100/certificate/add",
+                                    data: formData,
+                                    headers: { "Content-Type": "multipart/form-data" }
+                                }).then(() => {
+                                })
+                            }}>
+                                <Form.Group className="mb-3" controlId="formBasicPassword">
+                                    <Form.Label>Título</Form.Label>
+                                    <Form.Control name="title" type="text" placeholder="Introduzca el título del certificado" className="input focus border" />
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="formBasicPassword">
+                                    <Form.Label>Empresa</Form.Label>
+                                    <Form.Control name="business" type="text" placeholder="Introduzca la empresa" className="input focus border" />
+                                </Form.Group>
+                                <Form.Group className="mb-3" >
+                                    <Form.Select className="input focus border" name="year">
+                                        <option >Año</option>
+                                        <option value="2022">2022</option>
+                                        <option value="2021">2021</option>
+                                        <option value="2020">2020</option>
+                                        <option value="2019">2019</option>
+                                        <option value="2018">2018</option>
+                                        <option value="2017">2017</option>
+                                        <option value="2016">2016</option>
+                                        <option value="2015">2015</option>
+                                    </Form.Select>
+                                </Form.Group>
+                                <Form.Group className="mb-3" >
+                                    <Form.Select className="input focus border" name='month' >
+                                        <option >Mes</option>
+                                        <option value="Enero">Enero</option>
+                                        <option value="Febrero">Febrero</option>
+                                        <option value="Marzo">Marzo</option>
+                                        <option value="Abril">Abril</option>
+                                        <option value="Mayo">Mayo</option>
+                                        <option value="Junio">Junio</option>
+                                        <option value="Julio">Julio</option>
+                                        <option value="Agosto">Agosto</option>
+                                        <option value="Septiembre">Septiembre</option>
+                                        <option value="Octubre">Octubre</option>
+                                        <option value="Noviembre">Noviembre</option>
+                                        <option value="Diciembre">Diciembre</option>
+                                    </Form.Select>
+                                </Form.Group>
+                                <Row>
+                                    <Col xs="7">
+                                        <Form.Group className="mb-3" controlId="formBasicEmail" >
+                                            <Form.Label>Seleccione la imagen:</Form.Label>
+                                            <Form.Control onChange={e => {
+                                                this.img.current.src = URL.createObjectURL(e.target.files[0]);
+                                                console.log(this.img.current.src)
+                                            }} id="inputfile" type="file" accept="image/*" name="files" className="input focus border" />
+                                        </Form.Group>
+                                    </Col>
+                                    <Col md={{ span: 4, offset: 1 }} className="shadow" style={{ width: 240, height: 130 }}>
+                                        <Image src="" alt="" ref={this.img} thumbnail  />
+                                    </Col>
+                                </Row>
+
+                                <Button variant="dark" type="submit" className="d-block mx-auto">
+                                    Agregar certificado
+                                </Button>
+                            </Form>
+                        </Col>
+                    </Row>
                 </Modal.Body>
             </Modal>
         </>

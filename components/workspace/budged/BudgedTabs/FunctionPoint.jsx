@@ -14,7 +14,12 @@ import { LineChart, BarChart } from './Charts';
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable'
 //initial state and Quiz component
-import { initialState, Quiz } from './data'
+import { initialState, Quiz } from './data';
+
+//
+import { toPng } from 'html-to-image';
+//path
+import path from 'path';
 export default class FunctionPoint extends Component {
     constructor(props) {
         super(props);
@@ -31,13 +36,13 @@ export default class FunctionPoint extends Component {
         this.setState(prevState => {
             return {
                 requirements: [...prevState.requirements, {
-                    reqname, reqdesc, reqtype, range,
+                    reqname, reqdesc, reqtype, range, difficulty: ''
                 }],
                 reqname: "",
                 reqdesc: "",
             }
+        });
 
-        })
     }
 
     onNameChange(e) {
@@ -92,6 +97,8 @@ export default class FunctionPoint extends Component {
             let requirements2 = [...this.state.requirements];
             let requirement = requirements2.splice(index, 1)[0]
             requirement["range"] = button.title;
+            requirement["difficulty"] = button.innerText;
+            console.log(button)
             requirements2 = [...requirements2.slice(0, index), requirement, ...requirements2.slice(index)]
             this.setState(prevState => {
                 return { ...prevState, requirements: [...requirements2] }
@@ -146,6 +153,9 @@ export default class FunctionPoint extends Component {
     }
 
     render() {
+        let countTypes = {};
+        let types = [...this.state.requirements.map(val => val.reqtype)];
+        types.forEach(val => { countTypes[val] = (countTypes[val] || 0) + 1 })
         return (<>
             <Container>
                 <Row >
@@ -158,9 +168,10 @@ export default class FunctionPoint extends Component {
                     <Col xs="12">
                         <h2 className='text-center my-4'>Bienvenido, a continuación te pedimos llenar los campos solicitados</h2>
                     </Col>
+
                     <Col xs="12">
                         <Row>
-                            <Col className='shadow' xs="12" md={{ span: 6, offset: 3 }}>
+                            <Col className='shadow' xs="12" md={{ span: 6 }}>
                                 <Form onSubmit={this.addRequerimiento.bind(this)} className='p-4' style={{
                                     borderRadius: 30
                                 }}  >
@@ -194,6 +205,19 @@ export default class FunctionPoint extends Component {
                                     </FloatingLabel>
                                     <Button variant='dark' type='submit' className='d-block w-50 mx-auto'>Agregar</Button>
                                 </Form>
+                            </Col>
+                            <Col xs="12" md={{ span: 4, offset: 1 }}>
+                                <Row>
+                                    <Col xs="12">
+                                        <LineChart id={'pfreq'} text="PFSA / Requerimiento" label="PF" labels={[...this.state.requirements.map((value, _i) => _i)]}
+                                            data={[...this.state.requirements.map(value => value.range)]} />
+                                    </Col>
+                                    <Col>
+
+                                        <BarChart id={'types'} labels={Object.keys(countTypes)} label="Total" text='Conteo de tipos de requerimientos'
+                                            data={Object.values(countTypes)} />
+                                    </Col>
+                                </Row>
                             </Col>
                             <Col sm={{ span: 12 }} lg={{ span: 8, offset: 2 }} className="mt-5">
                                 <Table size='sm' onClick={this.onClickTable.bind(this)} striped bordered hover variant="dark" id="requirement-table">
@@ -291,7 +315,7 @@ export default class FunctionPoint extends Component {
                                     </Card.Header>
                                     <Card.Body>
                                         <Row className="justify-content-between">
-                                            <Col xs="3">
+                                            <Col xs="12" md="3">
                                                 <Card>
                                                     <Card.Header>
                                                         PFSA (Sin ajustar)
@@ -302,7 +326,7 @@ export default class FunctionPoint extends Component {
                                                 </Card>
 
                                             </Col>
-                                            <Col xs="3">
+                                            <Col xs="12" md="3">
                                                 <Card>
                                                     <Card.Header>
                                                         Factor de ajuste
@@ -312,7 +336,7 @@ export default class FunctionPoint extends Component {
                                                     </Card.Body>
                                                 </Card>
                                             </Col>
-                                            <Col xs="3">
+                                            <Col xs="12" md="3" lg="3">
 
                                                 <Card>
                                                     <Card.Header>
@@ -332,7 +356,7 @@ export default class FunctionPoint extends Component {
                             <Col xs="12">
 
                                 <Row>
-                                    <Col xs="4" md={{ span: 3, offset: 1 }}>
+                                    <Col xs="12" md="7" lg={{ span: 3, offset: 1 }}>
                                         <FloatingLabel controlId="floatingSelectGrid" label="Seleccione la generación del lenguaje">
                                             <Form.Select ref={this.generation} defaultValue={"25 8"} className='focus border-dark my-2'>
                                                 <option value="320 25">1ra. Ensamblador</option>
@@ -368,9 +392,9 @@ export default class FunctionPoint extends Component {
                                             })
                                         }} className='d-block mx-auto' variant='dark'>Generar estimaciones</Button>
                                     </Col>
-                                    <Col xs="8" className="d-flex align-items-center">
+                                    <Col xs="12" md="5" lg={{ span: 8 }} className="d-flex align-items-center">
                                         <Row className='justify-content-around w-100'>
-                                            <Col className='shadow rounded' md={{ span: 3 }}>
+                                            <Col className='shadow rounded' xs="12" xl="3">
                                                 <Card>
                                                     <Card.Header>
                                                         Esfuerzo horas/hombre
@@ -383,12 +407,11 @@ export default class FunctionPoint extends Component {
                                                         <Card.Text>
                                                             {`H/H = ${this.state.pfa} * ${this.state.time} = ${this.state.pfa * this.state.time}`}
                                                             <br />
-
                                                         </Card.Text>
                                                     </Card.Body>
                                                 </Card>
                                             </Col>
-                                            <Col className='shadow rounded' md={{ span: 4 }}>
+                                            <Col className='shadow rounded' xs="12" xl="3">
                                                 <Card>
                                                     <Card.Header>
                                                         Costo estimado
@@ -405,7 +428,7 @@ export default class FunctionPoint extends Component {
                                                     </Card.Body>
                                                 </Card>
                                             </Col>
-                                            <Col className='shadow rounded' md={{ span: 4 }}>
+                                            <Col className='shadow rounded' xs="12" xl="3">
                                                 <Card>
                                                     <Card.Header>
                                                         Resumen
@@ -421,78 +444,99 @@ export default class FunctionPoint extends Component {
                                             </Col>
                                         </Row>
                                     </Col>
-                                    <Col>
-                                        <Button onClick={() => {
-                                            const doc = new jsPDF();
-                                            // doc.autoTable({
-                                            //     styles: { fillColor: [255, 0, 0] },
-                                            //     columnStyles: { 0: { halign: 'center', fillColor: [0, 255, 0] } }, // Cells in first column centered and green
-                                            //     margin: { top: 10 },
-                                            //     body: [
-                                            //         [{ content: 'Text', colSpan: 2, rowSpan: 2, styles: { halign: 'center' }, theme: 'css' }],
+                                    <Button onClick={() => {
+                                        let date = new Date();
+                                        let fecha = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}  ${date.getHours()}:${date.getMinutes().toString().length == 1 ? "0" + date.getMinutes() : date.getMinutes()}`;
+                                        let req = [...this.state.requirements];
+                                        req = req.map((value, _i) => {
+                                            return { i: _i + 1, ...value }
+                                        })
+                                        const doc = new jsPDF('p', 'mm', [297, 210]);
+                                        var img = new Image();
+                                        img.src = path.resolve('logo.png');
+                                        doc.addImage(img, 'png', 10, 10, 15, 15);
+                                        doc.setFont('Courier');
+                                        doc.setFontSize(11);
+                                        doc.text(110, 30, 'REPORTE DE ESTIMACIONES POR EL MÉTODO DE PUNTOS DE FUNCIÓN', 'center');
+                                        doc.text(105, 40, `Nombre: Miguel Huayhua Condori    Reporte elaborado: ${fecha}`, 'center');
 
-                                            //         ['Sweden', 'Japan', 'Canada'],
-                                            //         ['Norway', 'China', 'USA'],
-                                            //         ['Denmark', 'China', 'Mexico'],
-                                            //         ['Denmark', 'China', 'Mexico'],
+                                        doc.line(10, 50, doc.internal.pageSize.getWidth() - 10, 50, null);
 
-                                            //         ['Denmark', 'China', 'Mexico'],
+                                        doc.text(110, 60, 'TABLA DE REQUERIMIENTOS MAS PUNTOS DE FUNCIÓN (PFSA)', 'center');
 
-                                            //         ['Denmark', 'China', 'Mexico'],
+                                        doc.autoTable({
+                                            styles: { fillColor: "#EEE", fontSize: 9 },
+                                            footStyles: { fillColor: "#DDD", textColor: "#666", fontSize: 10, font: 'courier' },
+                                            headStyles: { fillColor: "#666", textColor: "#DDD", fontSize: 8, font: 'courier' },
+                                            startY: 70,
+                                            theme: 'grid',
+                                            body: req,
+                                            foot: [['Total: ', '', '', '', '', `${this.state.pfsa}`]],
+                                            columns: [
+                                                { header: 'NRO', dataKey: 'i' },
+                                                { header: 'REQUERIMIENTO', dataKey: 'reqname' },
+                                                { header: 'DETALLES', dataKey: 'reqdesc' },
+                                                { header: 'TIPO', dataKey: 'reqtype' },
+                                                { header: 'DIFICULTAD', dataKey: 'difficulty' },
+                                                { header: 'PFSA', dataKey: 'range' },
+                                            ],
+                                        })
+                                        doc.text(105, doc.lastAutoTable.finalY + 10, 'TABLA FACTORES DE INFLUENCIA', 'center');
+                                        doc.autoTable({
+                                            showHead: 'firstPage',
+                                            showFoot: 'lastPage',
+                                            styles: { fillColor: "#EEE", fontSize: 9 },
+                                            footStyles: { fillColor: "#DDD", textColor: "#666", fontSize: 10, font: 'courier' },
+                                            headStyles: { fillColor: "#666", textColor: "#DDD", fontSize: 8, font: 'courier' },
+                                            startY: doc.lastAutoTable.finalY + 20,
+                                            theme: 'grid',
+                                            body: [...this.state.factors],
+                                            foot: [['Total: ', `${this.state.factor}`]],
+                                            columns: [
+                                                { header: 'TÍTULO FACTOR', dataKey: 'title' },
+                                                { header: 'Grado', dataKey: 'value' }
+                                            ],
+                                        })
+                                        if (doc.internal.pageSize.getHeight() <= doc.lastAutoTable.finalY + 80) {
+                                            doc.addPage();
+                                            doc.text(105, 20, `Resultados:`, 'center');
 
-
-                                            //     ],
-                                            // })
-
-                                            // // Example usage of columns property. Note that America will not be included even though it exist in the body since there is no column specified for it.
-                                            // doc.autoTable({
-                                            //     columnStyles: { europe: { halign: 'center' } }, // European countries centered
-                                            //     body: [
-                                            //         { europe: 'Sweden', america: 'Canada', asia: 'China' },
-                                            //         { europe: 'Norway', america: 'Mexico', asia: 'Japan' },
-                                            //     ],
-                                            //     columns: [
-                                            //         { header: 'Europe', dataKey: 'europe' },
-                                            //         { header: 'Asia', dataKey: 'asia' },
-                                            //     ],
-                                            // })
-                                            // doc.autoTable({
-                                            //     styles: { fillColor: [255, 0, 0] },
-                                            //     margin: { top: 50 },
-
-                                            //     body: [
-                                            //         ['Sweden', 'Japan', 'Canada'],
-                                            //         ['Norway', 'China', 'USA'],
-                                            //         ['Denmark', 'China', 'Mexico'],
-                                            //     ],
-                                            // })
-
-
-                                            doc.autoTable({
-                                                theme: 'plain',
-                                                body: [
-                                                    ["en desarrollo"],
-
-
-                                                ],
-                                            })
-                                            //     toPng(divToDisplay).then(data => {
-                                            //         doc.addImage(data, "PNG", 10, 20, 50, 30, "FAST")
-                                            //         doc.close();
-                                            //         doc.save("asfd.pdf")
-                                            //     })
-                                            doc.save("prueba.pdf")
-                                        }}
-                                            className='d-block mx-auto my-4' variant="outline-dark">
-                                            GENERAR PDF
-                                        </Button>
-                                    </Col>
+                                            doc.setFont('Helvetica');
+                                            doc.setFontSize(10);
+                                            doc.text(105, 30, `PFSA: ${this.state.pfsa}  _______________  FACTOR DE AJUSTE: ${this.state.factor}   ________________  PFA: ${this.state.pfa}`, 'center');
+                                            doc.text(80, 35, `
+                                                GENERACIÓN DE LENGUAJE: ${this.generation.current.selectedOptions[0].innerText.substring(0, 4)} generación.                     HORAS PF: ${this.state.time}                   LDC/PF: ${this.state.ldc}`, 'center');
+                                            let text = doc.splitTextToSize(`Duración en meses para ${this.state.nrodev} desarrolladores basado en ${this.state.duracion} horas de trabajo por día y 22 días de trabajo: ${(((this.state.h_H / this.state.duracion) / 22) / this.state.nrodev).toFixed(2)} meses.`, 200)
+                                            doc.text(18, 50, text);
+                                            doc.addImage(document.getElementById('types'), "PNG", 20, 60, 75, 50);
+                                            doc.addImage(document.getElementById('pfreq'), "PNG", 110, 60, 75, 50);
+                                        }
+                                        else {
+                                            doc.text(105, doc.lastAutoTable.finalY + 20, `Resultados:`, 'center');
+                                            doc.setFont('Helvetica');
+                                            doc.setFontSize(10);
+                                            doc.text(105, doc.lastAutoTable.finalY + 30, `PFSA: ${this.state.pfsa}  _______________  FACTOR DE AJUSTE: ${this.state.factor}   ________________  PFA: ${this.state.pfa}`, 'center');
+                                            doc.text(80, doc.lastAutoTable.finalY + 35, `
+                                                GENERACIÓN DE LENGUAJE: ${this.generation.current.selectedOptions[0].innerText.substring(0, 4)} generación.                     HORAS PF: ${this.state.time}                   LDC/PF: ${this.state.ldc}`, 'center');
+                                            let text = doc.splitTextToSize(`Duración en meses para ${this.state.nrodev} desarrolladores basado en ${this.state.duracion} horas de trabajo por día y 22 días de trabajo: ${(((this.state.h_H / this.state.duracion) / 22) / this.state.nrodev).toFixed(2)} meses`, 200)
+                                            doc.text(18, doc.lastAutoTable.finalY + 50, text);
+                                            doc.addImage(document.getElementById('types'), "PNG", 25, doc.lastAutoTable.finalY + 60, 75, 50);
+                                            doc.addImage(document.getElementById('pfreq'), "PNG", 115, doc.lastAutoTable.finalY + 60, 75, 50);
+                                        }
+                                        doc.save(`Estimacion ${fecha}`);
+                                    }}
+                                        className='d-block mx-auto my-4 w-50' variant="outline-dark">
+                                        GENERAR PDF
+                                    </Button>
                                 </Row>
                             </Col>
                         </Row>
+                       //
+
                     </Col>
 
                 </Row>
+
             </Container >
         </>
         );
