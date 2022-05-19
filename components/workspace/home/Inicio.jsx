@@ -18,8 +18,8 @@ export default class Inicio extends Component {
     render() {
 
         return (<>
-            <Container fluid className="bg-danger">
-                jejej
+            <Container fluid className="">
+                En desarrollo
             </Container>
         </>)
     }

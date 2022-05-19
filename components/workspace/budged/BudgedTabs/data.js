@@ -20,7 +20,7 @@ export const initialState = {
     factors: [
         {
             title: "Comunicación de datos",
-            description: "Los datos e informaciones de control utilizados por la aplicación son enviados o recibidos a través de recursos de comunicación de datos. Terminales y estaciones de trabajo son algunos ejemplos. Todos los dispositivos de comuniacción utilizan algún tipo de protocolo de comunicación.",
+            description: "Los datos e informaciones de control utilizados por la aplicación son enviados o recibidos a través de recursos de comunicación de datos. (Terminales y estaciones de trabajo son algunos ejemplos). Todos los dispositivos de comuniacción utilizan algún tipo de protocolo de comunicación.",
             grades: [
                 "Aplicación puramente batch o funciona en una computadora aislada.",
                 "La aplicación es batch, pero utiliza entrada de datos remota o impresión remota.",
@@ -36,10 +36,10 @@ export const initialState = {
             description: "Datos o precesamiento distribuidos entre varias unidades de procesamiento (CPUs) son características generales que pueden influenciar en la complejidad de la aplicación.",
             grades: [
                 "La aplicación no contribuye en la transferencia de datos o funciones entre los procesasodores de la empresa.",
-                "La aplicación prepara datos para elsusario final en otra CPU de la empresa.",
+                "La aplicación prepara datos para el usuario final en otra CPU de la empresa.",
                 "La aplicación prepara datos para transferencia, los transfiere y entonces son preocesados en otro equipamiento de la empresa (no por el usuario final).",
                 "Procesamiento distribuido y la transferencia de datos son online en apenas una dirección.",
-                "Procesamiento distribuido y la transferencai de datos son online en ambas direcciones.",
+                "Procesamiento distribuido y la transferencia de datos son online en ambas direcciones.",
                 "Las funciones de procesamiento son dinámicamente ejecutadas en el equipamiento más adecuado."
             ],
             value: 0
@@ -59,13 +59,13 @@ export const initialState = {
         },
         {
             title: "Configuración del equipamiento",
-            description: "Esta característica representa la necesidad de ralizar consideraciones especiales en el diseño de los sistemas para que la configuración del equipamiento no sea sobrecargada.",
+            description: "Esta característica representa la necesidad de realizar consideraciones especiales en el diseño de los sistemas para que la configuración del equipamiento no sea sobrecargada.",
             grades: [
                 "Ninguna restricción operacional explícita o implícita fue incluida.",
                 "Existen restricciones operaciionales leves. No es necesario un esfuerzo especial para resolver estas restricciones.",
                 "Algunas consideraciones de ajuste de perfomance y seguridad son necesarias.",
                 "Son necesarias especificaciones especiales de procesador para un módulo específico de la aplicación.",
-                "Restriccione operacionales requiren cuidades especiales en el procesador central o procesador dedicado.",
+                "Restriccione operacionales requiren cuidados especiales en el procesador central o procesador dedicado.",
                 "Además de las características del item anterior, hay consideraciones especiales en la distribución del sistema y sus componentes."
             ],
             value: 0
