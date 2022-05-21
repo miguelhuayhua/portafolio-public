@@ -3,7 +3,7 @@ import "chart.js/auto";
 import { Line, Bar } from "react-chartjs-2";
 
 export const LineChart = ({
-  data = [320, 128, 105, 105, 90, 70, 20, 15, 12, 6],
+  data = [320, 128, 105, 105, 90, 70, 25, 15, 12, 6],
   labels = [
     "Ensamblador",
     "C",

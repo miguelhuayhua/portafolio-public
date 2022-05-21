@@ -4,7 +4,7 @@ import { Col, Card } from "react-bootstrap";
 import Link from "next/link";
 import Image from "next/image";
 
-const Certificate = ({ id, business, year, month, title }) => {
+const Certificate = ({ id, business, year, month, title, credencial }) => {
   return (
     <Col xs="12" md="6" xl="4">
       <Card>
@@ -20,14 +20,15 @@ const Certificate = ({ id, business, year, month, title }) => {
           <Card.Title>{`${title}`}</Card.Title>
           <Card.Text>
             <div className="d-flex">
-              <p className="mx-3 my-auto">{`${business}`}</p>
+              Empresa: {`${business}`}
+              <br />
+              Fecha: {(month, year)}
             </div>
-            Fecha: {(month, year)}
           </Card.Text>
 
           <div className="d-flex justify-content-center">
             <Link
-              href="https://www.sololearn.com/certificates/course/en/25363066/1024/landscape/png"
+              href={credencial}
               passHref
             >
               <a className="btn btn-outline-dark" target="_blank">

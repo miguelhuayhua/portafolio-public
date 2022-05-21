@@ -87,3 +87,14 @@ export const loginReducer = createReducer(loginInitialState, (builder) => {
         return { ...state, loged: action.payload }
     })
 })
+
+
+// certificate modal reducer
+const certificateModalInitialState = {
+    src: '',
+    name: '',
+    toggle: false
+}
+export const certificateModal = createReducer(certificateFieldsReducer, (builder) => {
+    
+})

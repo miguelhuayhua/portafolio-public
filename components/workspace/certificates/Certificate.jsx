@@ -357,7 +357,7 @@ export default class Certificate extends Component {
                       url: "http://localhost:3100/certificate/add",
                       data: formData,
                       headers: { "Content-Type": "multipart/form-data" },
-                    }).then(() => {});
+                    }).then(() => { });
                   }}
                 >
                   <Form.Group className="mb-3" controlId="title">
@@ -375,6 +375,15 @@ export default class Certificate extends Component {
                       name="business"
                       type="text"
                       placeholder="Introduzca la empresa"
+                      className="input focus border"
+                    />
+                  </Form.Group>
+                  <Form.Group className="mb-3" controlId="credencial">
+                    <Form.Label>Credencial:</Form.Label>
+                    <Form.Control
+                      name="credencial"
+                      type="text"
+                      placeholder="Introduzca la URL de la credencial"
                       className="input focus border"
                     />
                   </Form.Group>
