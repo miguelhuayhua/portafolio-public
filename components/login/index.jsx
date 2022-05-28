@@ -3,7 +3,6 @@ import { Component } from 'react';
 
 //react-bootstrap
 import { Row, Col, Card, Button, Form, Modal } from 'react-bootstrap';
-import { BsCardText } from 'react-icons/bs';
 import Router from 'next/router';
 //redux
 import { connect } from 'react-redux';
@@ -11,9 +10,6 @@ import { connect } from 'react-redux';
 //actions
 import { userNameChange, passwordChange, logedChange } from '../../redux/actions';
 
-//icons
-import { FaJava } from 'react-icons/fa';
-import { SiCsharp, SiJava, SiJavascript } from 'react-icons/si';
 //next
 //cookie
 import Cookies from 'js-cookie';
@@ -36,7 +32,7 @@ class Login extends Component {
     }
     onSubmit(ev) {
         ev.preventDefault();
-        axios.post("http://localhost:3100/user/login",
+        axios.post("https://server-miguel.herokuapp.com/user/login",
             {
                 username: this.props.username,
                 password: this.props.password

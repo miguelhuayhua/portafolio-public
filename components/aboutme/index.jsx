@@ -13,13 +13,11 @@ import {
 // next
 import Link from "next/link";
 //font awesome
-import { SiSololearn } from "react-icons/si";
 import { MdOutlineDoneOutline } from "react-icons/md";
 //redux
 import { connect } from "react-redux";
 import { chargeCertificates } from "../../redux/actions";
 //images
-import logoSoloLearn from "../../public/assets/soloLearn.png";
 //components
 import Certificate from "./Certificate";
 //import modules
@@ -36,7 +34,7 @@ class AboutMe extends Component {
     };
   }
   componentDidMount() {
-    axios.get("http://localhost:3100/certificate").then((result) => {
+    axios.get("https://server-miguel.herokuapp.com/certificate").then((result) => {
       this.props.onRefresh(result.data);
     });
     console.log(this.props.data)
@@ -74,7 +72,7 @@ class AboutMe extends Component {
                 <Card.Img
                   variant="top"
                   className="rounded-circle shadow mx-auto image-enter"
-                  src='http://localhost:3100/website/myself'
+                  src='https://server-miguel.herokuapp.com/website/myself'
                 />
                 <Card.Body>
                   <Card.Title>Miguel Huayhua Condori</Card.Title>

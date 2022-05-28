@@ -40,7 +40,7 @@ export default class Certificate extends Component {
 
   loadData() {
     axios
-      .get("http://localhost:3100/certificate", {}, { withCredentials: true })
+      .get("https://server-miguel.herokuapp.com/certificate", {}, { withCredentials: true })
       .then((value) => {
         this.setState(() => {
           console.log(value.data);
@@ -66,7 +66,7 @@ export default class Certificate extends Component {
     formData.append("date", new Date().toISOString());
     axios({
       method: "post",
-      url: "http://localhost:3100/certificate/add",
+      url: "https://server-miguel.herokuapp.com/certificate/add",
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     }).then((res) => {
@@ -163,7 +163,7 @@ export default class Certificate extends Component {
                       <td>{value.date}</td>
                       <td><Button variant="danger" id={value._id}
                         onClick={e => {
-                          axios.delete('http://localhost:3100/certificate/delete', { data: { id: e.target.id }, withCredentials: true }).then(res => {
+                          axios.delete('https://server-miguel.herokuapp.com/certificate/delete', { data: { id: e.target.id }, withCredentials: true }).then(res => {
                             if (res.data.deleted) {
                               this.loadData.bind(this);
                             }

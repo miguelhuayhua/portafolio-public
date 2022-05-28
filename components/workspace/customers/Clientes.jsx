@@ -37,7 +37,7 @@ class Clientes extends Component {
 
 
     loadData() {
-        axios.post("http://localhost:3100/client", {}, { withCredentials: true }).then(value => {
+        axios.post("https://server-miguel.herokuapp.com/client", {}, { withCredentials: true }).then(value => {
             this.setState((prevState) => {
                 return {
                     ...prevState,
@@ -48,7 +48,7 @@ class Clientes extends Component {
     }
     deleteCustomer(e) {
         let _id = e.target.id.length != 0 ? e.target.id : e.target.parentNode.parentNode.id;
-        axios.delete("http://localhost:3100/client", { data: { _id }, withCredentials: true }).then(response => {
+        axios.delete("https://server-miguel.herokuapp.com/client", { data: { _id }, withCredentials: true }).then(response => {
             if (response.data.eliminado) {
                 this.loadData();
                 this.setState((prevState) => {
@@ -89,7 +89,7 @@ class Clientes extends Component {
     //submit client
     handleClient() {
         let { email, name, phone, phoneCode } = this.props;
-        axios.post("http://localhost:3100/client/new",
+        axios.post("https://server-miguel.herokuapp.com/client/new",
             {
                 name,
                 email,

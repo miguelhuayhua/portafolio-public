@@ -39,7 +39,7 @@ export default class NavbarMain extends Component {
                 <Container>
                     <Link href="/">
                         <Navbar.Brand className="logo">
-                            <Image width={50} height={50} src="http://localhost:3100/"></Image>
+                            <Image width={50} height={50} src="https://server-miguel.herokuapp.com/"></Image>
                         </Navbar.Brand>
                     </Link>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />

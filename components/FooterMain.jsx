@@ -47,7 +47,7 @@ class FooterMain extends Component {
         e.preventDefault();
         const { name, email, phone, phoneCode } = this.props;
         if (name.length != 0) {
-            axios.post("http://localhost:3100/client/new",
+            axios.post("https://server-miguel.herokuapp.com/client/new",
                 {
                     name,
                     email,

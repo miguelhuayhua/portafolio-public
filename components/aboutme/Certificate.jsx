@@ -13,7 +13,7 @@ const Certificate = ({ id, business, year, month, title, credencial, type }) => 
           <Image
             fluid
             layout="responsive"
-            src={`http://localhost:3100/certificate/images/${id}`}
+            src={`https://server-miguel.herokuapp.com//certificate/images/${id}`}
           ></Image>
           <Card.Title>{`${title}`}</Card.Title>
           <Card.Text>
