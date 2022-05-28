@@ -21,11 +21,13 @@ class Main extends Component {
           <meta name="viewport" content="initial-scale=1.0, width=device-width" />
           <link rel="icon" href="/icono.ico" />
         </Head>
-        {/*Rest of the Body*/}
-        {/*Navbar component*/}
-        <NavbarMain />
 
         <Container className="rounded shadow">
+          {/*Navbar component*/}
+
+          <NavbarMain />
+          {/*Rest of the Body*/}
+
           <Welcome />
           <FooterMain />
         </Container>

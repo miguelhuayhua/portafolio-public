@@ -38,33 +38,36 @@ export const LeftPanel = () => {
     <>
       <Nav
         style={{
-          backgroundColor: "#334",
+          backgroundColor: "#f8f9fa",
+          borderRightWidth: 1,
+          borderRightStyle: 'solid',
+          borderRightColor: '#AAA'
         }}
         variant="pills"
         className="flex-column h-100"
       >
         <div>
           <Nav.Item className="mt-md-5" onClick={toHome}>
-            <Nav.Link className="d-flex align-items-center justify-content-start white">
+            <Nav.Link className="d-flex align-items-center justify-content-start">
               <AiTwotoneHome fontSize={20} className="me-4" />
               <span>Inicio</span>
             </Nav.Link>
           </Nav.Item>
 
           <Nav.Item className="mt-1" onClick={toCustomers}>
-            <Nav.Link className="d-flex align-items-center justify-content-start white">
+            <Nav.Link className="d-flex align-items-center justify-content-start">
               <MdTableView fontSize={20} className="me-4" />
               <span>Clientes</span>
             </Nav.Link>
           </Nav.Item>
           <Nav.Item className="mt-1" onClick={toCertificates}>
-            <Nav.Link className="d-flex align-items-center justify-content-start white">
+            <Nav.Link className="d-flex align-items-center justify-content-start">
               <AiFillSafetyCertificate fontSize={20} className="me-4" />
               <span>Certificados</span>
             </Nav.Link>
           </Nav.Item>
           <Nav.Item className="mt-1" onClick={toUsers}>
-            <Nav.Link className="d-flex align-items-center justify-content-start white">
+            <Nav.Link className="d-flex align-items-center justify-content-start ">
               <FaUsers fontSize={20} className="me-4" />
               <span>Usuarios</span>
             </Nav.Link>
@@ -72,14 +75,14 @@ export const LeftPanel = () => {
           <Nav.Item className="mt-1" onClick={toProjects}>
             <Nav.Link
               eventKey="pro"
-              className="d-flex align-items-center justify-content-start white"
+              className="d-flex align-items-center justify-content-start "
             >
               <BsFillFileEarmarkCodeFill fontSize={20} className="me-4" />
               <span>Proyectos</span>
             </Nav.Link>
           </Nav.Item>
           <Nav.Item className="mt-1 links" onClick={toBudged}>
-            <Nav.Link className="d-flex align-items-center justify-content-start white">
+            <Nav.Link className="d-flex align-items-center justify-content-start ">
               <FaCalculator fontSize={20} className="me-4" />
               <span>Presupuestar Proyecto</span>
             </Nav.Link>
@@ -87,7 +90,7 @@ export const LeftPanel = () => {
           <Nav.Item className="mt-1 mb-2 mb-md-5">
             <Nav.Link
               onClick={handleLogOut}
-              className="d-flex align-items-center justify-content-start white"
+              className="d-flex align-items-center justify-content-start"
             >
               <RiLogoutBoxFill fontSize={20} className="me-4" />
               Cerrar Sesión

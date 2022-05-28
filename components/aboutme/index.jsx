@@ -24,17 +24,40 @@ import logoSoloLearn from "../../public/assets/soloLearn.png";
 import Certificate from "./Certificate";
 //import modules
 import axios from "axios";
+import { ImageModal } from "./Modal";
+//nyself
 
 class AboutMe extends Component {
   constructor(props) {
     super(props);
-    this.state = { showModal: false };
+    this.state = {
+      showModal: false,
+      src: ''
+    };
   }
   componentDidMount() {
-    console.log("refresh");
     axios.get("http://localhost:3100/certificate").then((result) => {
       this.props.onRefresh(result.data);
     });
+    console.log(this.props.data)
+  }
+  showModal(e) {
+    if (e.target.tagName === 'IMG') {
+      let src = e.target.src;
+      this.setState(prev => {
+        return {
+          ...prev, showModal: !prev.showModal, src
+        }
+      })
+    }
+  }
+
+  closeModal() {
+    this.setState(prev => {
+      return {
+        ...prev, showModal: !prev.showModal
+      }
+    })
   }
   render() {
     return (
@@ -51,7 +74,7 @@ class AboutMe extends Component {
                 <Card.Img
                   variant="top"
                   className="rounded-circle shadow mx-auto image-enter"
-                  src="https://m.media-amazon.com/images/I/81es2htLT9L._SS500_.jpg"
+                  src='http://localhost:3100/website/myself'
                 />
                 <Card.Body>
                   <Card.Title>Miguel Huayhua Condori</Card.Title>
@@ -104,8 +127,10 @@ class AboutMe extends Component {
                 <Accordion.Item eventKey="0">
                   <Accordion.Header>Certificaciones externos</Accordion.Header>
                   <Accordion.Body>
-                    <Row>
-                      {this.props.data.map((ce) => (
+                    <Row onClick={this.showModal.bind(this)} >
+                      {this.props.data.filter(value => {
+                        return value.type == 'E';
+                      }).map((ce) => (
                         <Certificate
                           key={ce._id}
                           id={ce._id}
@@ -114,6 +139,7 @@ class AboutMe extends Component {
                           month={ce.month}
                           business={ce.business}
                           credencial={ce.credencial || ''}
+                          type={ce.type}
                         />
                       ))}
                     </Row>
@@ -125,51 +151,27 @@ class AboutMe extends Component {
                   </Accordion.Header>
                   <Accordion.Body>
                     <Row>
-                      <Col xs="12" md="6" xl="4" className="mb-3">
-                        <Card>
-                          <Card.Img
-                            variant="top"
-                            src="https://www.sololearn.com/certificates/course/en/25363066/1060/landscape/png"
-                          />
-                          <Card.Body>
-                            <Card.Title>SQL</Card.Title>
-                            <Card.Text>
-                              <div className="d-flex">
-                                <Image
-                                  width={35}
-                                  height={35}
-                                  src={logoSoloLearn}
-                                />
-                                <p className="mx-3 my-auto">
-                                  Empresa Emisora: Solo Learn
-                                </p>
-                              </div>
-                              Fecha: 04/2021
-                            </Card.Text>
-
-                            <div className="d-flex justify-content-center">
-                              <Link
-                                href="https://www.sololearn.com/certificates/course/en/25363066/1060/landscape/png"
-                                passHref
-                              >
-                                <a
-                                  className="btn btn-outline-dark"
-                                  target="_blank"
-                                >
-                                  Ver Credenciales
-                                </a>
-                              </Link>
-                            </div>
-                          </Card.Body>
-                        </Card>
-                      </Col>
+                      {this.props.data.filter(value => {
+                        return value.type == 'U';
+                      }).map((ce) => (
+                        <Certificate
+                          key={ce._id}
+                          id={ce._id}
+                          title={ce.title}
+                          year={ce.year}
+                          month={ce.month}
+                          business={ce.business}
+                          credencial={ce.credencial || ''}
+                          type={ce.type}
+                        />
+                      ))}
                     </Row>
                   </Accordion.Body>
                 </Accordion.Item>
               </Accordion>
             </Col>
           </Row>
-         
+          <ImageModal closeModal={this.closeModal.bind(this)} show={this.state.showModal} src={this.state.src} />
         </Container>
       </>
     );

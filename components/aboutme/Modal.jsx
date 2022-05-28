@@ -1,33 +1,24 @@
-export const Modal = () => {
+//react bootstrap components
+import { Modal, Image, Button } from "react-bootstrap";
+
+export const ImageModal = ({ src, show, closeModal }) => {
 
 
     return (
 
-        <Modal size="lg" show={this.state.showModal}>
-            <Modal.Header>
+        <Modal size="lg" show={show} onHide={closeModal} >
+            <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
                     React + Redux
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Image
-                    src="https://www.sololearn.com/certificates/course/en/25363066/1060/landscape/png"
+                    src={src}
                     fluid
-                ></Image>
+                />
             </Modal.Body>
-            <Modal.Footer>
-                <Button
-                    variant="outline-dark"
-                    className="w-25"
-                    onClick={(e) => {
-                        this.setState((prev) => {
-                            return { showModal: !prev.showModal };
-                        });
-                    }}
-                >
-                    Cerrar
-                </Button>
-            </Modal.Footer>
+
         </Modal>
     )
 }

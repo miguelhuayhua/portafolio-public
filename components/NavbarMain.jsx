@@ -31,7 +31,11 @@ export default class NavbarMain extends Component {
     render() {
 
         return (<>
-            <Navbar className="border-1 border-dark border-bottom mb-3" style={{}} expand="lg">
+            <Navbar className="mb-3" style={{
+                borderBottomWidth: 1,
+                borderBottomStyle: 'solid',
+                borderBottomColor: "#CCC"
+            }} expand="lg">
                 <Container>
                     <Link href="/">
                         <Navbar.Brand className="logo">

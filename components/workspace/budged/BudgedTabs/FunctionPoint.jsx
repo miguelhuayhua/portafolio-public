@@ -306,7 +306,7 @@ export default class FunctionPoint extends Component {
                     onDoubleClick={(e) => {
                       let { reqname, reqdesc, reqtype, range, difficulty } =
                         this.state.requirements[
-                          e.target.parentElement.getAttribute("index")
+                        e.target.parentElement.getAttribute("index")
                         ];
                       this.setState((prev) => {
                         return { ...prev, reqname, reqdesc, reqtype, range };
@@ -424,8 +424,8 @@ export default class FunctionPoint extends Component {
                   <Button
                     variant="dark-outline"
                     className="border border-dark d-block w-100 my-2"
-                    onClick={e=>{
-                      
+                    onClick={e => {
+
                     }}
                   >
                     <FaDatabase /> <span> Guardar Permanente</span>
@@ -594,9 +594,8 @@ export default class FunctionPoint extends Component {
                             <Card.Body>
                               <Card.Text>H/H = PFA * HorasPF</Card.Text>
                               <Card.Text>
-                                {`H/H = ${this.state.pfa} * ${
-                                  this.state.time
-                                } = ${this.state.pfa * this.state.time}`}
+                                {`H/H = ${this.state.pfa} * ${this.state.time
+                                  } = ${this.state.pfa * this.state.time}`}
                                 <br />
                               </Card.Text>
                             </Card.Body>
@@ -619,12 +618,12 @@ export default class FunctionPoint extends Component {
                                   0
                                 )} Bs. = 
                                                             ${(
-                                                              (this.state.h_H /
-                                                                this.state
-                                                                  .duracion /
-                                                                22) *
-                                                              (327 * 6.89)
-                                                            ).toFixed(2)} Bs.`}
+                                    (this.state.h_H /
+                                      this.state
+                                        .duracion /
+                                      22) *
+                                    (327 * 6.89)
+                                  ).toFixed(2)} Bs.`}
                               </Card.Text>
                             </Card.Body>
                           </Card>
@@ -676,7 +675,7 @@ export default class FunctionPoint extends Component {
                   </Row>
                 </Col>
               </Row>
-              //
+
             </Col>
           </Row>
         </Container>

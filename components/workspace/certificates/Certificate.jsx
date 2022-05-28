@@ -1,6 +1,9 @@
 //import react component
 import { Component, createRef, useRef, useMemo } from "react";
 //react next
+
+//react icons
+import { BsFillTrashFill } from 'react-icons/bs';
 //React Bootstrap
 import {
   Row,
@@ -8,28 +11,18 @@ import {
   Card,
   Form,
   Button,
-  Toast,
-  Tab,
-  Nav,
   Table,
   ButtonGroup,
   DropdownButton,
   Dropdown,
-  Navbar,
   Modal,
   Image,
 } from "react-bootstrap";
-//redux
-import { connect } from "react-redux";
-//actions
 //charts
 import "chart.js/auto";
 import { Line, Bar } from "react-chartjs-2";
 //axios
 import axios from "axios";
-import html2canvas from "html2canvas";
-import { jsPDF } from "jspdf";
-import { toPng } from "html-to-image";
 export default class Certificate extends Component {
   constructor(props) {
     super(props);
@@ -66,6 +59,28 @@ export default class Certificate extends Component {
     });
   }
 
+
+  handleSubmit(e) {
+    e.preventDefault();
+    let formData = new FormData(this.form.current);
+    formData.append("date", new Date().toISOString());
+    axios({
+      method: "post",
+      url: "http://localhost:3100/certificate/add",
+      data: formData,
+      headers: { "Content-Type": "multipart/form-data" },
+    }).then((res) => {
+
+      if (res.data.added) {
+        this.setState(prevState => {
+          return ({
+            ...prevState, showModal: false
+          })
+        })
+      }
+
+    });
+  }
   render() {
     return (
       <>
@@ -135,6 +150,7 @@ export default class Certificate extends Component {
                   <th className="bg-dark text-white">Titulo</th>
                   <th className="bg-dark text-white">Empresa</th>
                   <th className="bg-dark text-white">Fecha</th>
+                  <th className="bg-dark text-white"></th>
                 </tr>
               </thead>
               <tbody>
@@ -145,6 +161,15 @@ export default class Certificate extends Component {
                       <td>{value.title}</td>
                       <td>{value.business}</td>
                       <td>{value.date}</td>
+                      <td><Button variant="danger" id={value._id}
+                        onClick={e => {
+                          axios.delete('http://localhost:3100/certificate/delete', { data: { id: e.target.id }, withCredentials: true }).then(res => {
+                            if (res.data.deleted) {
+                              this.loadData.bind(this);
+                            }
+                          })
+                        }}>
+                        <BsFillTrashFill /></Button></td>
                     </tr>
                   );
                 })}
@@ -278,12 +303,10 @@ export default class Certificate extends Component {
                     color: "white",
                     scales: {
                       y: {
-                        // not 'yAxes: [{' anymore (not an array anymore)
                         ticks: {
-                          color: "white", // not 'fontColor:' anymore
-                          // fontSize: 18,
+                          color: "white",
                           font: {
-                            size: 12, // 'size' now within object 'font {}'
+                            size: 12,
                           },
                           stepSize: 40,
                           beginAtZero: true,
@@ -328,7 +351,7 @@ export default class Certificate extends Component {
           </Col>
         </Row>
         <Modal
-          show={true}
+          show={this.state.showModal}
           fullscreen={true}
           onHide={this.openCloseModal.bind(this)}
         >
@@ -347,18 +370,7 @@ export default class Certificate extends Component {
                   method="post"
                   encType="multipart/form-data"
                   id="form"
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    let formData = new FormData(this.form.current);
-                    formData.append("date", new Date().toISOString());
-                    console.log(new Date().getHours());
-                    axios({
-                      method: "post",
-                      url: "http://localhost:3100/certificate/add",
-                      data: formData,
-                      headers: { "Content-Type": "multipart/form-data" },
-                    }).then(() => { });
-                  }}
+                  onSubmit={this.handleSubmit.bind(this)}
                 >
                   <Form.Group className="mb-3" controlId="title">
                     <Form.Label>Título</Form.Label>
@@ -387,36 +399,53 @@ export default class Certificate extends Component {
                       className="input focus border"
                     />
                   </Form.Group>
-                  <Form.Group className="mb-3">
-                    <Form.Select className="input focus border" name="year">
-                      <option>Año</option>
-                      <option value="2022">2022</option>
-                      <option value="2021">2021</option>
-                      <option value="2020">2020</option>
-                      <option value="2019">2019</option>
-                      <option value="2018">2018</option>
-                      <option value="2017">2017</option>
-                      <option value="2016">2016</option>
-                      <option value="2015">2015</option>
-                    </Form.Select>
-                  </Form.Group>
-                  <Form.Group className="mb-3">
-                    <Form.Select className="input focus border" name="month">
-                      <option>Mes</option>
-                      <option value="Enero">Enero</option>
-                      <option value="Febrero">Febrero</option>
-                      <option value="Marzo">Marzo</option>
-                      <option value="Abril">Abril</option>
-                      <option value="Mayo">Mayo</option>
-                      <option value="Junio">Junio</option>
-                      <option value="Julio">Julio</option>
-                      <option value="Agosto">Agosto</option>
-                      <option value="Septiembre">Septiembre</option>
-                      <option value="Octubre">Octubre</option>
-                      <option value="Noviembre">Noviembre</option>
-                      <option value="Diciembre">Diciembre</option>
-                    </Form.Select>
-                  </Form.Group>
+                  <Row className="justify-content-lg-between">
+                    <Col xs="12" md="3">
+                      <Form.Group className="mb-3">
+                        <Form.Select className="input focus border" name="year">
+                          <option>Año</option>
+                          <option value="2022">2022</option>
+                          <option value="2021">2021</option>
+                          <option value="2020">2020</option>
+                          <option value="2019">2019</option>
+                          <option value="2018">2018</option>
+                          <option value="2017">2017</option>
+                          <option value="2016">2016</option>
+                          <option value="2015">2015</option>
+                        </Form.Select>
+                      </Form.Group>
+                    </Col>
+                    <Col xs="12" md="3">
+                      <Form.Group className="mb-3">
+                        <Form.Select className="input focus border" name="month">
+                          <option>Mes</option>
+                          <option value="Enero">Enero</option>
+                          <option value="Febrero">Febrero</option>
+                          <option value="Marzo">Marzo</option>
+                          <option value="Abril">Abril</option>
+                          <option value="Mayo">Mayo</option>
+                          <option value="Junio">Junio</option>
+                          <option value="Julio">Julio</option>
+                          <option value="Agosto">Agosto</option>
+                          <option value="Septiembre">Septiembre</option>
+                          <option value="Octubre">Octubre</option>
+                          <option value="Noviembre">Noviembre</option>
+                          <option value="Diciembre">Diciembre</option>
+                        </Form.Select>
+                      </Form.Group>
+
+                    </Col>
+                    <Col xs="12" md="3">
+                      <Form.Group className="mb-3">
+                        <Form.Select className="input focus border" name="type">
+                          <option>Tipo</option>
+                          <option value="E">Externo</option>
+                          <option value="U">Universitario</option>
+                        </Form.Select>
+                      </Form.Group>
+                    </Col>
+
+                  </Row>
                   <Row>
                     <Col xs="7">
                       <Form.Group className="mb-3" controlId="inputfile">
