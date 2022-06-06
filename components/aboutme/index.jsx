@@ -5,13 +5,8 @@ import {
   Row,
   Col,
   Card,
-  Button,
   Accordion,
-  Modal,
-  Image,
 } from "react-bootstrap";
-// next
-import Link from "next/link";
 //font awesome
 import { MdOutlineDoneOutline } from "react-icons/md";
 //redux
@@ -23,8 +18,8 @@ import Certificate from "./Certificate";
 //import modules
 import axios from "axios";
 import { ImageModal } from "./Modal";
-//nyself
-
+//url
+import url from "../../api";
 class AboutMe extends Component {
   constructor(props) {
     super(props);
@@ -34,7 +29,7 @@ class AboutMe extends Component {
     };
   }
   componentDidMount() {
-    axios.get("https://server-miguel.herokuapp.com/certificate").then((result) => {
+    axios.get(url + "/certificate").then((result) => {
       this.props.onRefresh(result.data);
     });
     console.log(this.props.data)
@@ -72,7 +67,9 @@ class AboutMe extends Component {
                 <Card.Img
                   variant="top"
                   className="rounded-circle shadow mx-auto image-enter"
-                  src='https://server-miguel.herokuapp.com/website/myself'
+                  src={
+                    url + '/website/myself'
+                  }
                 />
                 <Card.Body>
                   <Card.Title>Miguel Huayhua Condori</Card.Title>

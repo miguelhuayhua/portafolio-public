@@ -6,15 +6,14 @@ import Link from "next/link";
 
 //React Bootstrap
 import Container from 'react-bootstrap/Container';
-import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { Navbar, Nav } from "react-bootstrap";
 import Image from "next/image";
-import Image2 from "react-bootstrap/Image"
-import logo from '../public/logo.png';
 //React icons
 import { AiFillHome, AiFillCode } from 'react-icons/ai';
 import { MdWork } from 'react-icons/md';
 import { RiLoginBoxFill } from 'react-icons/ri';
-
+//url
+import url from "../api";
 export default class NavbarMain extends Component {
 
 
@@ -39,7 +38,7 @@ export default class NavbarMain extends Component {
                 <Container>
                     <Link href="/">
                         <Navbar.Brand className="logo">
-                            <Image width={50} height={50} src="https://server-miguel.herokuapp.com/"></Image>
+                            <Image width={50} height={50} src={url}></Image>
                         </Navbar.Brand>
                     </Link>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />

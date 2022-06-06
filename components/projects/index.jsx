@@ -25,11 +25,11 @@ export default class Project extends Component {
                     <Col xs="12" md="6" >
                         <Card className='rounded shadow'>
                             <Card.Header className='bg-dark'>
-                                <Card.Title className='text-white'>Proyecto Restaurante</Card.Title>
+                                <Card.Title className='text-white'>-------- No terminado</Card.Title>
                             </Card.Header>
                             <Card.Body>
                                 <Card.Subtitle className='fw-light'>
-                                    Un proyecto de restaurante desarrollado con el propósito de optimizar ciertas tareas.
+                                    ----------------------------- No terminado
                                 </Card.Subtitle>
                                 <Card.Text className='d-flex align-items-center'>
                                     Lenguajes utilizados:<SiJava fontSize={30} /><SiCsharp fontSize={30} /><SiJavascript fontSize={30} />

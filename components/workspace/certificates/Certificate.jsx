@@ -23,6 +23,8 @@ import "chart.js/auto";
 import { Line, Bar } from "react-chartjs-2";
 //axios
 import axios from "axios";
+//url
+import url from "../../../api";
 export default class Certificate extends Component {
   constructor(props) {
     super(props);
@@ -40,7 +42,7 @@ export default class Certificate extends Component {
 
   loadData() {
     axios
-      .get("https://server-miguel.herokuapp.com/certificate", {}, { withCredentials: true })
+      .get(url + "/certificate", {}, { withCredentials: true })
       .then((value) => {
         this.setState(() => {
           console.log(value.data);
@@ -66,7 +68,7 @@ export default class Certificate extends Component {
     formData.append("date", new Date().toISOString());
     axios({
       method: "post",
-      url: "https://server-miguel.herokuapp.com/certificate/add",
+      url: url + "/certificate/add",
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     }).then((res) => {
@@ -163,7 +165,7 @@ export default class Certificate extends Component {
                       <td>{value.date}</td>
                       <td><Button variant="danger" id={value._id}
                         onClick={e => {
-                          axios.delete('https://server-miguel.herokuapp.com/certificate/delete', { data: { id: e.target.id }, withCredentials: true }).then(res => {
+                          axios.delete(url + '/certificate/delete', { data: { id: e.target.id }, withCredentials: true }).then(res => {
                             if (res.data.deleted) {
                               this.loadData.bind(this);
                             }

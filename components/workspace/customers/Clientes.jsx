@@ -1,7 +1,7 @@
 
 
 //import react component
-import { Component, createRef, useRef, useMemo } from "react";
+import { Component } from "react";
 //react next
 //React Bootstrap
 import Container from 'react-bootstrap/Container';
@@ -19,9 +19,8 @@ import { BsFillTrashFill } from 'react-icons/bs';
 import { MdOutlineDoneAll } from 'react-icons/md';
 //axios
 import axios from 'axios';
-import html2canvas from 'html2canvas';
-import { jsPDF } from "jspdf";
-import { toPng } from "html-to-image";
+//url
+import url from "../../../api";
 class Clientes extends Component {
     constructor(props) {
         super(props);
@@ -37,7 +36,7 @@ class Clientes extends Component {
 
 
     loadData() {
-        axios.post("https://server-miguel.herokuapp.com/client", {}, { withCredentials: true }).then(value => {
+        axios.post(url + "/client", {}, { withCredentials: true }).then(value => {
             this.setState((prevState) => {
                 return {
                     ...prevState,
@@ -48,7 +47,7 @@ class Clientes extends Component {
     }
     deleteCustomer(e) {
         let _id = e.target.id.length != 0 ? e.target.id : e.target.parentNode.parentNode.id;
-        axios.delete("https://server-miguel.herokuapp.com/client", { data: { _id }, withCredentials: true }).then(response => {
+        axios.delete(url + "/client", { data: { _id }, withCredentials: true }).then(response => {
             if (response.data.eliminado) {
                 this.loadData();
                 this.setState((prevState) => {
@@ -89,7 +88,7 @@ class Clientes extends Component {
     //submit client
     handleClient() {
         let { email, name, phone, phoneCode } = this.props;
-        axios.post("https://server-miguel.herokuapp.com/client/new",
+        axios.post(url + "/client/new",
             {
                 name,
                 email,

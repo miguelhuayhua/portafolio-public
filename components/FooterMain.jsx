@@ -15,6 +15,8 @@ import { MdEmail, MdOutlineDoneAll } from 'react-icons/md';
 import { GrStatusGood } from 'react-icons/gr';
 //axios
 import axios from 'axios';
+//url
+import url from "../api";
 
 class FooterMain extends Component {
     constructor(props) {
@@ -47,7 +49,7 @@ class FooterMain extends Component {
         e.preventDefault();
         const { name, email, phone, phoneCode } = this.props;
         if (name.length != 0) {
-            axios.post("https://server-miguel.herokuapp.com/client/new",
+            axios.post(url + "/client/new",
                 {
                     name,
                     email,
@@ -85,7 +87,7 @@ class FooterMain extends Component {
                                     type="text" placeholder="Introduce tu nombre..." name="name"
                                     onChange={this.onNameChanged.bind(this)}
                                     value={this.props.name}
-                                   
+
                                 />
                             </Form.Group>
                             <Row>
@@ -137,6 +139,9 @@ class FooterMain extends Component {
                                 </Col>
                             </Row>
                         </Form>
+                    </Col>
+                    <Col sm={{ span: 6, offset: 3 }}>
+                        <p className="text-center"><cite>Desarrollado por: </cite> Miguel Huayhua Condori - 2022</p>
                     </Col>
                 </Row>
 

@@ -3,7 +3,8 @@ import { Col, Card, Image } from "react-bootstrap";
 //nextjs
 import Link from "next/link";
 // import Image from "next/image";
-
+//url
+import url from "../../api";
 const Certificate = ({ id, business, year, month, title, credencial, type }) => {
   console.log(type)
   return (
@@ -13,7 +14,7 @@ const Certificate = ({ id, business, year, month, title, credencial, type }) => 
           <Image
             fluid
             layout="responsive"
-            src={`https://server-miguel.herokuapp.com//certificate/images/${id}`}
+            src={`${url}/certificate/images/${id}`}
           ></Image>
           <Card.Title>{`${title}`}</Card.Title>
           <Card.Text>

@@ -16,6 +16,8 @@ import Cookies from 'js-cookie';
 
 //axios
 import axios from 'axios';
+//url
+import url from '../../api';
 class Login extends Component {
 
     constructor(props) {
@@ -32,7 +34,7 @@ class Login extends Component {
     }
     onSubmit(ev) {
         ev.preventDefault();
-        axios.post("https://server-miguel.herokuapp.com/user/login",
+        axios.post(url + "/user/login",
             {
                 username: this.props.username,
                 password: this.props.password

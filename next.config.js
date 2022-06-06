@@ -7,7 +7,7 @@ const nextConfig = {
     quality: 100,
   },
   images: {
-    domains: ['cdn.pixabay.com', 'scontent.flpb2-2.fna.fbcdn.net', 'localhost'],
+    domains: ['cdn.pixabay.com', 'scontent.flpb2-2.fna.fbcdn.net', 'server-miguel.herokuapp.com', 'localhost'],
     formats: ['image/avif', 'image/webp'],
     loader: 'akamai',
     path: '',
