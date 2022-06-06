@@ -1,3 +1,3 @@
-const url = 'http://localhost:3100';
+const url = 'https://server-miguel.herokuapp.com';
 
 export default url;
