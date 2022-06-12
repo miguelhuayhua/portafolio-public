@@ -21,8 +21,7 @@ export default class Cocomo extends Component {
             <Container>
 
                 <Row>
-                    <Col xx="1">Cocomo</Col>
-
+                    <Col xx="1">Cocomo coming soon</Col>
 
                 </Row>
             </Container>
